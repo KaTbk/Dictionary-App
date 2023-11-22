@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import "./App.css";
+import "./assets/styles/global.css";
 import SearchBar from "./components/searchBar/SearchBar";
 import styled from "styled-components";
-import WordDefinition from "./components/wordDefinition/WordDefinition";
+import { findAudioUrl, findMeaning } from "./utils/helpers";
+import WordCard from "./components/wordCard/WordCard";
 
 const StyledMain = styled.main`
   padding: 24px;
@@ -11,37 +12,16 @@ const StyledMain = styled.main`
 function App() {
   const [searchResults, setSearchResults] = useState(null);
 
-  const findAudioUrl = (obj) => {
-    if (!obj) return null;
-    let audioUrl = "";
-    audioUrl = obj.phonetics.find((item) => item.audio.length > 0);
-    return audioUrl ? audioUrl.audio : null;
-  };
-
-  const findMeaning = (obj) => {
-    if (!obj) return null;
-    let meanings = [];
-    try {
-      obj.forEach((item) => {
-        meanings = [...meanings, ...item.meanings];
-      });
-    } catch (error) {
-      console.log(error);
-    }
-    return meanings ? meanings : null;
-  };
-
   return (
     <StyledMain>
       <SearchBar setSearchResult={setSearchResults} />
       {searchResults ? (
-        <WordDefinition
+        <WordCard
           word={searchResults[0]?.word}
           phonetic={searchResults[0]?.phonetic}
           audio={findAudioUrl(searchResults[0])}
-          title={searchResults?.title}
-          message={searchResults?.message}
           meanings={findMeaning(searchResults)}
+          source={searchResults[0]?.sourceUrls[0]}
         />
       ) : (
         <h2>Search for a word to get started!</h2>

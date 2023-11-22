@@ -1,33 +1,33 @@
 import React, { useState } from "react";
 import { SearchBarContainer } from "./SearchBar.styles";
+import api from "../../services/api";
 
 const SeartchBar = ({ setSearchResult }) => {
-  const [search, setSearch] = useState("");
+  const [searchValue, setSearchValue] = useState("");
 
   const handleChange = (e) => {
-    setSearch(e.target.value);
+    setSearchValue(e.target.value);
   };
 
   const handleUrl = (input) => {
     return `https://api.dictionaryapi.dev/api/v2/entries/en/${input}`;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (search === "") return;
-    fetch(handleUrl(search))
-      .then((response) => response.json())
-      .then((data) => setSearchResult(data))
-      .catch((err) => {
-        console.log(err.message);
-        setSearchResult("");
-      });
+    if (searchValue === "") return;
+    try {
+      const result = await api(searchValue);
+      setSearchResult(result);
+    } catch (err) {
+      console.error(err.message);
+    }
   };
 
   return (
     <>
       <SearchBarContainer onSubmit={handleSubmit}>
-        <input type="text" value={search} onChange={handleChange} />
+        <input type="text" value={searchValue} onChange={handleChange} />
         <button>Search</button>
       </SearchBarContainer>
     </>
