@@ -1,3 +1,5 @@
+import { theme, lightTheme, darkTheme } from "../assets/styles/theme";
+
 export const findAudioUrl = (obj) => {
   let audioUrl = "";
   try {
@@ -18,4 +20,9 @@ export const findMeaning = (obj) => {
     console.log(error);
   }
   return meanings ? meanings : [];
+};
+
+export const handleTheme = (isDarkTheme) => {
+  let currentTheme = isDarkTheme ? darkTheme : lightTheme;
+  return { ...theme, ...currentTheme };
 };

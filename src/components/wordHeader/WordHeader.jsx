@@ -2,8 +2,9 @@ import { useRef } from "react";
 import {
   HeaderWrapper,
   InnerWrapper,
-  PlayBtn,
+  PlayBtnWrapper,
 } from "./WordHeader.styles";
+import { ReactComponent as PlayIcon } from "../../assets/images/icon-play.svg";
 
 const WordHeader = ({ word, phonetic, audio }) => {
   const audioRef = useRef(null);
@@ -18,9 +19,10 @@ const WordHeader = ({ word, phonetic, audio }) => {
         <h1>{word}</h1>
         <p>{phonetic}</p>
       </InnerWrapper>
-      <PlayBtn onClick={handlePlay}>
+      <PlayBtnWrapper onClick={handlePlay}>
         {audio && <audio src={audio} ref={audioRef} />}
-      </PlayBtn>
+        <PlayIcon />
+      </PlayBtnWrapper>
     </HeaderWrapper>
   );
 };

@@ -1,6 +1,7 @@
 import {
   DetailHeader,
   WordDefinitionsList,
+  WordDefinitionsListWrapper,
   WordSynonyms,
 } from "./WordDetails.styles";
 
@@ -11,12 +12,14 @@ const WordDetails = ({ partOfSpeech, definitions, synonyms }) => {
         <h2>{partOfSpeech}</h2>
         <div></div>
       </DetailHeader>
-      <WordDefinitionsList>
+      <WordDefinitionsListWrapper>
         <h3>Meaning</h3>
-        {definitions.map((element, index) => (
-          <li key={index}>{element.definition}</li>
-        ))}
-      </WordDefinitionsList>
+        <WordDefinitionsList>
+          {definitions.map((element, index) => (
+            <li key={index}>{element.definition}</li>
+          ))}
+        </WordDefinitionsList>
+      </WordDefinitionsListWrapper>
       {synonyms.length > 0 && (
         <WordSynonyms>
           <h3>Synonyms</h3>

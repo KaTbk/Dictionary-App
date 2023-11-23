@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SearchBarContainer } from "./SearchBar.styles";
 import api from "../../services/api";
+import { ReactComponent as SearchIcon } from "../../assets/images/icon-search.svg";
 
 const SeartchBar = ({ setSearchResult }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -27,8 +28,16 @@ const SeartchBar = ({ setSearchResult }) => {
   return (
     <>
       <SearchBarContainer onSubmit={handleSubmit}>
-        <input type="text" value={searchValue} onChange={handleChange} />
-        <button>Search</button>
+        <input
+          type="text"
+          value={searchValue}
+          onChange={handleChange}
+          placeholder="Search for any word..."
+          autoFocus
+        />
+        <button>
+          <SearchIcon />
+        </button>
       </SearchBarContainer>
     </>
   );
